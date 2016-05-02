@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Restaurant>
+
+@{
+    ViewBag.Title = "Restaurant List";
+}
+<div class="container col-md-6">
+    <h1>Hello From Restaurant List Page</h1>
+    <div class="row">
+        <a asp-controller="Restaurant" asp-action="Create" class="btn btn-primary">Create Restaurant</a>
+    </div>
+    <div class="row">
+        @if (Model.Any())
+        {
+            <table class="table table-bordered">
+                <tr>
+                    <th>Name</th>
+                    <th>Cuisine</th>
+                    <th>Action</th>
+                </tr>
+                @foreach (var restaurant in Model)
+                {
+                    <tr>
+                        <td>@restaurant.Name</td>
+                        <td>@restaurant.Cuisine</td>
+                        <td>
+                            <a asp-controller="Restaurant" asp-action="Edit" asp-route-id="@restaurant.Id">Edit</a> |
+                            <a href="#" onclick="Restaurant.delete(@restaurant.Id,'@restaurant.Name')">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <div class="text-info col-md-6 col-md-offset-3">
+                No Data Found
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    var Restaurant = {
+        delete: function (id, name) {
+            if (confirm("Are you sure you want to delete " + name + " ?")) {
+                $.ajax({ type: "Post", url: "/Restaurant/Delete/" + id, success: function (response) { response ? window.location = "/" : alert("Something went wrong"); }, failure: function () { alert("something went wrong"); } });
+            }
+        }
+    };
+</script>
