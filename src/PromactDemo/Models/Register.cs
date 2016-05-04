@@ -2,7 +2,7 @@
 
 namespace PromactDemo.Models
 {
-    public class Regsiter
+    public class Register
     {
         [Required, Display(Name = "User Name"), MinLength(5), MaxLength(100)]
         public string UserName { get; set; }
@@ -13,7 +13,7 @@ namespace PromactDemo.Models
         [Required]
         public string Password { get; set; }
 
-        [Required, Compare(nameof(Password))]
+        [Required, Compare(nameof(Password)), Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
     }
 }

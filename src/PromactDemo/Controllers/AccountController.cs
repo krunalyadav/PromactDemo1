@@ -48,5 +48,17 @@ namespace PromactDemo.Controllers
             ModelState.AddModelError("", "Invalid Data");
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(Register register)
+        {
+            return View();
+        }
     }
 }

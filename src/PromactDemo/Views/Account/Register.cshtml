@@ -1,0 +1,43 @@
+﻿@model Register
+@{
+    ViewBag.Title = "Register";
+}
+<form method="post" class="form-horizontal col-md-4" autocomplete="off">
+    <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+    <div class="form-group">
+        <label class="col-md-5 control-label" asp-for="UserName"></label>
+        <div class="col-md-7">
+            <input asp-for="UserName" class="form-control" placeholder="User Name" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-5 control-label" asp-for="Email"></label>
+        <div class="col-md-7">
+            <input asp-for="Email" class="form-control" placeholder="Email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-5 control-label" asp-for="Password"></label>
+        <div class="col-md-7">
+            <input asp-for="Password" class="form-control" placeholder="Password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-5 control-label" asp-for="ConfirmPassword"></label>
+        <div class="col-md-7">
+            <input asp-for="ConfirmPassword" class="form-control" placeholder="ConfirmPassword" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+            <input type="submit" class="btn btn-primary" value="Register" />
+        </div>
+        <div class="col-md-4 col-md-offset-2">
+            <a asp-controller="Account" asp-action="Login" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+</form>
