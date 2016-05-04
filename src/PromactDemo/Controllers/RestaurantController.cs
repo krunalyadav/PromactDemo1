@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Mvc;
 using PromactDemo.Models;
 using System.Linq;
 
@@ -6,6 +7,7 @@ using System.Linq;
 
 namespace PromactDemo.Controllers
 {
+    [Authorize]
     public class RestaurantController : Controller
     {
         private RestaurantDbContext _context;
@@ -16,6 +18,7 @@ namespace PromactDemo.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View(_context.Restaurant.ToList());
@@ -70,7 +73,7 @@ namespace PromactDemo.Controllers
         public JsonResult Delete(int id)
         {
             var restaurant = _context.Restaurant.FirstOrDefault(x => x.Id == id);
-            if(restaurant!= null)
+            if (restaurant != null)
             {
                 _context.Remove(restaurant);
                 _context.SaveChanges();

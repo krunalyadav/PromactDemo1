@@ -23,7 +23,12 @@ namespace PromactDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddEntityFramework().AddSqlServer().AddDbContext<RestaurantDbContext>();
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<RestaurantDbContext>().AddDefaultTokenProviders();
+            services.AddIdentity<User, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = false;
+                config.Password.RequiredLength = 8;
+                config.Cookies.ApplicationCookie.LoginPath = "/Account/Login";
+            }).AddEntityFrameworkStores<RestaurantDbContext>().AddDefaultTokenProviders();
             services.AddMvc();
         }
 
