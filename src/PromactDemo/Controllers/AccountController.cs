@@ -56,9 +56,31 @@ namespace PromactDemo.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(Register register)
+        public async Task<IActionResult> Register(Register register)
         {
+            if (ModelState.IsValid)
+            {
+                var user = new User
+                {
+                    UserName = register.UserName,
+                    Email = register.Email
+                };
+                var result = await _securityManager.CreateAsync(user, register.Password);
+                if (result.Succeeded)
+                {
+                    await _loginManager.SignInAsync(user, false);
+                    return RedirectToAction(nameof(RestaurantController.Index), nameof(Restaurant));
+                }
+            }
+            ModelState.AddModelError("", "Invalid Model");
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _loginManager.SignOutAsync();
+            return RedirectToAction(nameof(RestaurantController.Index), nameof(Restaurant));
         }
     }
 }
